@@ -1,7 +1,6 @@
 import sqlite3
-import os
 
-nome_bd = os.environ.get("nome_bd")
+nome_bd = "controle-financeiro.db"
 
 def iniciar_bd():
     conexao = sqlite3.connect(nome_bd)
