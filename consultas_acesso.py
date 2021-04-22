@@ -1,8 +1,7 @@
 import sqlite3
-import os
 from datetime import datetime
 
-nome_bd = os.environ.get("nome_bd")
+nome_bd = "controle-financeiro.db"
 
 def criar_usuario(nome, email, senha):
     conexao = sqlite3.connect(nome_bd)
