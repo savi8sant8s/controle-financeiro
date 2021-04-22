@@ -50,16 +50,12 @@ def criar_tabelas(comando):
 
 def criar_categorias_padrao(comando):
     timestamp = datetime.now()
-    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) 
-    VALUES (?,?,?)" ''', ("Alimentos", timestamp, 0))
-    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) 
-    VALUES (?,?,?)" ''', ("Vestimentas", timestamp, 0))
-    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) 
-    VALUES (?,?,?)" ''', ("Medicamentos", timestamp, 0))
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Alimentos", timestamp, 0))
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Vestimentas", timestamp, 0))
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Medicamentos", timestamp, 0))
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Outros", timestamp, 0))
 
 def criar_tipos_padrao(comando):
-    comando.execute('''INSERT OR IGNORE INTO types (type_name) 
-    VALUES (?)" ''', ("Receita"))
-    comando.execute('''INSERT OR IGNORE INTO types (type_name) 
-    VALUES (?)" ''', ("Despesa"))
+    comando.execute('''INSERT OR IGNORE INTO types (type_name) VALUES (?)''', ["Receita"])
+    comando.execute('''INSERT OR IGNORE INTO types (type_name) VALUES (?)''', ["Despesa"])
     
