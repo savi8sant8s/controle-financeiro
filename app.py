@@ -1,30 +1,27 @@
-import sqlite3
+from interface_acesso import interface_acesso
+from banco_dados import iniciar_bd
 
-def inicio():
-    conexao = sqlite3.connect("controle-financeiro.db")
+ACESSO = 1
+HOME = 2
+SAIR = 3
 
-    comando = conexao.cursor()
+def boas_vindas():
+    print("SEJA VINDO(A)")
+    print("CONTROLE FINANCEIRO")
 
-    #Cria uma tabela
-    comando.execute("CREATE TABLE IF NOT EXISTS pessoas ( nome TEXT, idade INT, peso REAl)")
 
-    #Insere uma linha
-    nome = input ("Qual o seu nome?")
-    idade = int(input ("Qual o seu idade?"))
-    peso = float(input ("Qual o seu peso?"))
+def iniciar():
+    iniciar_bd()
+    boas_vindas()
+    ESTADO_ATUAL = ACESSO
 
-    conexao.execute ('''INSERT INTO pessoas VALUES (?,?,?) ''', (nome,idade,peso))
-    #comando.execute('SELECT * FROM pessoas WHERE coluna =(?,?,?)', (valueA,ValueB,ValueC))
+    while True:
+        if ESTADO_ATUAL == ACESSO:
+            ESTADO_ATUAL = interface_acesso()
+        elif ESTADO_ATUAL == HOME:
+            print("Você está em HOME")
+            break;
+        elif ESTADO_ATUAL == SAIR:
+            break
 
-    #Pega uma linha
-    pessoas = comando.execute('SELECT * FROM pessoas')
-    for row in pessoas:
-            print(row)
-
-    #Salva as alterações
-    conexao.commit()
-
-    #Fecha a conexão
-    conexao.close()
-
-inicio()
+iniciar()
