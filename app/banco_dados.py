@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 nome_bd = "controle-financeiro.db"
 
@@ -48,7 +49,13 @@ def criar_tabelas(comando):
                     )''')
 
 def criar_categorias_padrao(comando):
-    pass
+    timestamp = datetime.now()
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Alimentos", timestamp, 0))
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Vestimentas", timestamp, 0))
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Medicamentos", timestamp, 0))
+    comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Outros", timestamp, 0))
 
 def criar_tipos_padrao(comando):
-    pass
+    comando.execute('''INSERT OR IGNORE INTO types (type_name) VALUES (?)''', ["Receita"])
+    comando.execute('''INSERT OR IGNORE INTO types (type_name) VALUES (?)''', ["Despesa"])
+    

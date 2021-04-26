@@ -23,3 +23,19 @@ def iniciar():
             break
 
 iniciar()
+
+'''
+Layout----
+Saldo do usuário
+Cadastrar transação
+Cadastrar categoria
+Listar transações
+Transações por data--
+Transações por categoria--
+Sair
+
+Consultas----
+Lista de categorias
+Lista de tipos
+Criar transação
+'''
