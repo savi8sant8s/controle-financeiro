@@ -1,27 +1,35 @@
 from acesso.interface import interface_acesso
-from banco_dados import iniciar_bd
-from layout import boas_vindas
+from banco_dados import banco_dados
+from layout import layout
 
-ACESSO = 1
-HOME = 2
-SAIR = 3
+class ESTADO:
+    ACESSO = 1
+    HOME = 2
+    SAIR = 3
 
-iniciar_bd()
-boas_vindas()
+def boas_vindas():
+    layout.limpar()
+    layout.tracos()
+    layout.msgVerde("Seja bem-vindo(a)!!!")
+    layout.msgVerde("Controle Financeiro")
+    layout.tracos()
 
 def iniciar():
-    estado_atual = ACESSO
+
+    estado_atual = ESTADO.ACESSO
     id_usuario = None
 
     while True:
-        if estado_atual == ACESSO:
+        if estado_atual == ESTADO.ACESSO:
             (estado_atual, id_usuario) = interface_acesso()
-        elif estado_atual == HOME:
+        elif estado_atual == ESTADO.HOME:
             print(id_usuario)
             break
-        elif estado_atual == SAIR:
+        elif estado_atual == ESTADO.SAIR:
             break
 
+banco_dados()
+boas_vindas()
 iniciar()
 
 '''

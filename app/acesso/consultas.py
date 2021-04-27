@@ -3,19 +3,20 @@ from datetime import datetime
 
 nome_bd = "controle-financeiro.db"
 
-def criar_usuario(nome, email, senha):
-    conexao = sqlite3.connect(nome_bd)
-    comando = conexao.cursor()                 
+class consulta:
+    def criar_usuario(nome, email, senha):
+        conexao = sqlite3.connect(nome_bd)
+        comando = conexao.cursor()                 
 
-    timestamp = datetime.now()
-    comando.execute('''INSERT OR IGNORE INTO users (user_timestamp, user_name, user_email, user_password) VALUES (?,?,?,?)''', (timestamp, nome, email, senha))
-    conexao.commit()
+        timestamp = datetime.now()
+        comando.execute('''INSERT OR IGNORE INTO users (user_timestamp, user_name, user_email, user_password) VALUES (?,?,?,?)''', (timestamp, nome, email, senha))
+        conexao.commit()
 
-def pegar_id_usuario(email, senha):
-    conexao = sqlite3.connect(nome_bd)
-    comando = conexao.cursor()                 
+    def pegar_id_usuario(email, senha):
+        conexao = sqlite3.connect(nome_bd)
+        comando = conexao.cursor()                 
 
-    resposta = comando.execute('''SELECT user_id FROM users WHERE user_email = ? AND user_password = ?''', (email, senha))
+        resposta = comando.execute('''SELECT user_id FROM users WHERE user_email = ? AND user_password = ?''', (email, senha))
 
-    conexao.commit()
-    return resposta.fetchone()
+        conexao.commit()
+        return resposta.fetchone()[0]

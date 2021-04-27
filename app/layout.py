@@ -1,29 +1,33 @@
 import os
 import time
 
-def delay(tempo):
-    time.sleep(tempo)
+class layout:
+    def msgVermelha(msg): 
+        print("| " + "\033[91m {}\033[00m" .format(msg))
 
-def boas_vindas():
-    limpar()
-    tracos()
-    mensagemCentro("Seja Bem-vindo(a)!!!")
-    delay(0.5)
-    mensagemCentro("💸CONTROLE  FINANCEIRO💸",44)
-    tracos()
+    def msgVerde(msg): 
+        print("| " + "\033[92m {}\033[00m" .format(msg))
 
-def mensagemCentro(texto, tamanhoMaximo=46):
-    tamanhoTexto = len(texto)
-    espacosVazios = " " * int((tamanhoMaximo - tamanhoTexto)/2)
-    print("| " + espacosVazios + texto + espacosVazios + " |")
+    def msgAmarela(msg): 
+        print("| " + "\033[93m {}\033[00m" .format(msg))
 
-def mensagem(texto, tamanhoMaximo=46):
-    tamanhoTexto = len(texto)
-    espacosVazios = " " * (tamanhoMaximo - tamanhoTexto)
-    print("| " + texto + espacosVazios + " |")
+    def msgRoxoClaro(msg): 
+        print("| " + "\033[94m {}\033[00m" .format(msg))
 
-def tracos(quant=50):
-    print("-" * quant)
+    def msgRoxo(msg): 
+        print("| " + "\033[95m {}\033[00m" .format(msg))
 
-def limpar():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    def msgCiano(msg): 
+        print("| " + "\033[96m {}\033[00m" .format(msg))
+
+    def msgCinzaClaro(msg): 
+        print("| " + "\033[97m {}\033[00m" .format(msg))
+
+    def msgPreta(msg): 
+        print("| " + "\033[98m {}\033[00m" .format(msg))
+
+    def tracos(quant=50):
+        print("| " + "-" * quant)
+
+    def limpar():
+        os.system('cls' if os.name == 'nt' else 'clear')
