@@ -2,7 +2,7 @@ import re
 
 class validador:
     def validarNome(nome):
-        pattern = re.compile("^[a-zA-Z .]{5,30}$")
+        pattern = re.compile("^[a-zA-Z .]{3,30}$")
         if re.match(pattern, nome):
             return True   
         return False

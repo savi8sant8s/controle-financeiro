@@ -51,12 +51,13 @@ class banco_dados:
 
     def criar_categorias_padrao(self, comando):
         timestamp = datetime.now()
-        comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Alimentos", timestamp, 0))
-        comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Vestimentas", timestamp, 0))
-        comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Medicamentos", timestamp, 0))
-        comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', ("Outros", timestamp, 0))
+        values = ["Alimento", "Vestimenta", "Medicação", "Passagem", "Outros"]
+        for value in values:
+            comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', (value , timestamp, 0))
+
 
     def criar_tipos_padrao(self, comando):
-        comando.execute('''INSERT OR IGNORE INTO types (type_name) VALUES (?)''', ["Receita"])
-        comando.execute('''INSERT OR IGNORE INTO types (type_name) VALUES (?)''', ["Despesa"])
+        values = ["Receita", "Despesa"]
+        for value in values:
+            comando.execute('''INSERT OR IGNORE INTO types (type_name) VALUES (?)''', (value,))
         
