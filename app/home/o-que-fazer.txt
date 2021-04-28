@@ -1,0 +1,22 @@
+'''
+Opcões----
+Saldo do usuário
+Cadastrar transação
+Cadastrar categoria
+Listar transações
+Sair
+
+Layout----
+Saldo do usuário
+Cadastrar transação
+Cadastrar categoria
+Listar transações
+Sair
+
+Consultas----
+Lista de categorias
+Lista de tipos
+Criar transação
+Criar categoria
+'''
+
