@@ -33,7 +33,8 @@ class banco_dados:
                             cat_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                             cat_name TEXT UNIQUE NOT NULL,
                             cat_timestamp BLOB NOT NULL,
-                            cat_deletable INTEGER NOT NULL
+                            user_id INTEGER,
+                            FOREIGN KEY(user_id) REFERENCES users(user_id)
                         )''')
 
         comando.execute('''CREATE TABLE IF NOT EXISTS transactions (
@@ -53,7 +54,7 @@ class banco_dados:
         timestamp = datetime.now()
         values = ["Alimento", "Vestimenta", "Medicação", "Passagem", "Outros"]
         for value in values:
-            comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp, cat_deletable) VALUES (?,?,?)''', (value , timestamp, 0))
+            comando.execute('''INSERT OR IGNORE INTO categories (cat_name, cat_timestamp) VALUES (?,?)''', (value , timestamp))
 
 
     def criar_tipos_padrao(self, comando):

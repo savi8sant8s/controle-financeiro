@@ -8,48 +8,48 @@ class ESTADO:
     SAIR = 3
 
 def tentar_novamente():
-    layout.msgCinzaClaro("Deseja tentar novamente?")
-    layout.msgAmarela("Sim (1)")
-    layout.msgAmarela("Não (2)")
+    layout.msg_cinza_claro("Deseja tentar novamente?")
+    layout.msg_amarela("Sim (1)")
+    layout.msg_amarela("Não (2)")
     layout.tracos()
     opcao_escolhida = int(input("| Resposta: "))
     return (opcao_escolhida == 1)
 
 def opcoes_acesso():
     layout.tracos()
-    layout.msgCiano("Acesso")
+    layout.msg_ciano("Acesso")
     layout.tracos()
-    layout.msgCinzaClaro("Qual operação deseja realizar:")
-    layout.msgAmarela("Cadastrar (1)")
-    layout.msgAmarela("Entrar    (2)")
-    layout.msgAmarela("Sair      (3)")
+    layout.msg_cinza_claro("Qual operação deseja realizar:")
+    layout.msg_amarela("Cadastrar (1)")
+    layout.msg_amarela("Entrar    (2)")
+    layout.msg_amarela("Sair      (3)")
     layout.tracos()
 
 def cadastrar():
     while True:
         layout.tracos()
-        layout.msgCiano("Cadastro")
+        layout.msg_ciano("Cadastro")
         layout.tracos()
         nome = input("| Digite seu nome: ")
         email = input("| Digite seu email: ")
         senha = input("| Digite sua senha: ")
         if not validador.validarNome(nome):
             layout.tracos()
-            layout.msgVermelha("O nome deve conter de 5 a 30")
-            layout.msgVermelha("caracteres sem acento ou números.")
+            layout.msg_vermelha("O nome deve conter de 5 a 30")
+            layout.msg_vermelha("caracteres sem acento ou números.")
             layout.tracos()
         elif not validador.validarEmail(email):
             layout.tracos()
-            layout.msgVermelha("Ex. de email válido: fulano@email.com.")
+            layout.msg_vermelha("Ex. de email válido: fulano@email.com.")
             layout.tracos()
         elif not validador.validarSenha(senha):
             layout.tracos()
-            layout.msgVermelha("A senha deve conter de 4 a 32 caracteres.")
+            layout.msg_vermelha("A senha deve conter de 4 a 32 caracteres.")
             layout.tracos()
         else:
             consulta.criar_usuario(nome, email, senha)
             layout.tracos()
-            layout.msgVerde("Usuário cadastrado com sucesso.")
+            layout.msg_verde("Usuário cadastrado com sucesso.")
             layout.tracos()
             return (ESTADO.ACESSO, None)
         resposta = tentar_novamente()
@@ -59,23 +59,23 @@ def cadastrar():
 def login():
     while True:
         layout.tracos()
-        layout.msgCiano("Login ")
+        layout.msg_ciano("Login ")
         layout.tracos()
         email = input("| Digite seu email: ")
         senha = input("| Digite sua senha: ")
         if not validador.validarEmail(email):
             layout.tracos()
-            layout.msgVermelha("Ex. de email válido: fulano@email.com.")
+            layout.msg_vermelha("Ex. de email válido: fulano@email.com.")
             layout.tracos()
         elif not validador.validarSenha(senha):
             layout.tracos()
-            layout.msgVermelha("A senha deve conter de 4 a 32 caracteres.")
+            layout.msg_vermelha("A senha deve conter de 4 a 32 caracteres.")
             layout.tracos()
         else:
             id_usuario = consulta.pegar_id_usuario(email, senha)
             if id_usuario == None:
                 layout.tracos()
-                layout.msgVermelha("Credenciais inválidas.")
+                layout.msg_vermelha("Credenciais inválidas.")
                 layout.tracos()
             else:
                 return (ESTADO.HOME, id_usuario)
@@ -96,6 +96,6 @@ def interface_acesso():
     else:
         layout.limpar
         layout.tracos()
-        layout.msgVermelha("Opção inválida. Tente novamente.")
+        layout.msg_vermelha("Opção inválida. Tente novamente.")
         layout.tracos()
         return (ESTADO.ACESSO, None)

@@ -19,4 +19,4 @@ class consulta:
         resposta = comando.execute('''SELECT user_id FROM users WHERE user_email = ? AND user_password = ?''', (email, senha))
 
         conexao.commit()
-        return resposta.fetchone()
+        return resposta.fetchone()[0]

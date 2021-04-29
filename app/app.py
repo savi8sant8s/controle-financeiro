@@ -1,4 +1,5 @@
 from acesso.interface import interface_acesso
+from home.interface import interface_home
 from banco_dados import banco_dados
 from layout import layout
 
@@ -10,8 +11,8 @@ class ESTADO:
 def boas_vindas():
     layout.limpar()
     layout.tracos()
-    layout.msgVerde("Seja bem-vindo(a)!!!")
-    layout.msgVerde("Controle Financeiro")
+    layout.msg_verde("Seja bem-vindo(a)!!!")
+    layout.msg_verde("Controle Financeiro")
     layout.tracos()
 
 def iniciar():
@@ -23,8 +24,7 @@ def iniciar():
         if estado_atual == ESTADO.ACESSO:
             (estado_atual, id_usuario) = interface_acesso()
         elif estado_atual == ESTADO.HOME:
-            print(id_usuario)
-            break
+            (estado_atual, id_usuario) = interface_home(id_usuario)
         elif estado_atual == ESTADO.SAIR:
             break
 
