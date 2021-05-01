@@ -29,5 +29,13 @@ class layout:
     def tracos(quant=50):
         print("| " + "-" * quant)
 
+    def formatar_saldo(msg):
+        if msg == None:
+            layout.msg_verde("R$ 0")
+        elif msg >= 0:
+            layout.msg_verde("R$" + str(msg))
+        else:
+            layout.msg_vermelha("R$" + str(msg))
+
     def limpar():
         os.system('cls' if os.name == 'nt' else 'clear')

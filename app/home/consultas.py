@@ -56,6 +56,16 @@ class consulta:
         conexao.commit()
         return resposta.fetchall()
 
+    def saldo(user_id):
+        conexao = sqlite3.connect(nome_bd)
+        comando = conexao.cursor()
+        
+        resposta = comando.execute('''SELECT (SELECT SUM(trans_value) FROM transactions WHERE user_id = ? AND type_id = ?) - (SELECT SUM(trans_value) FROM transactions WHERE user_id = ? AND type_id = ?) AS saldo;''', (user_id, 1, user_id, 2,))
+
+        conexao.commit()   
+        return resposta.fetchone()[0]        
+
+
     def deletar_categoria(user_id, cat_id):
         conexao = sqlite3.connect(nome_bd)
         comando = conexao.cursor()
