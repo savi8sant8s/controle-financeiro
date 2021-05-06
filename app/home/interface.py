@@ -142,24 +142,22 @@ def cadastrar_categoria(id_usuario):
             return (ESTADO.HOME, id_usuario)
 
 def listar_transacoes(id_usuario):
-    while True:
-        layout.tracos()
-        layout.msg_ciano("Lista de transações")
-        layout.tracos()
-        transacoes = consulta.listar_transacoes(id_usuario)
-        for transacao in transacoes:
-            texto = ["Descrição: " + str(transacao[0]),"Valor: R$" + str(transacao[1])]            
-            layout.msg_roxo_claro(' --> '.join(texto))
-        layout.tracos()
-        layout.msg_amarela("Digite qualquer tecla para voltar")
-        sair = input("|  Resposta: ")
-        if sair != None:            
-            return (ESTADO.HOME, id_usuario)
+    layout.tracos()
+    layout.msg_ciano("Lista de transações")
+    layout.tracos()
+    transacoes = consulta.listar_transacoes(id_usuario)
+    if transacoes == []:
+        layout.msg_vermelha("| Não há transações personalizadas. Tente novamente...")
+        time.sleep(1)   
+        return (ESTADO.HOME, id_usuario)
+    for transacao in transacoes:
+        texto = ["Descrição: " + str(transacao[0]),"Valor: R$" + str(transacao[1])]            
+        layout.msg_roxo_claro(' --> '.join(texto))
+    layout.tracos()
+    return (ESTADO.HOME, id_usuario)
 
 def deletar_categoria(id_usuario):
     resposta = opcoes_categoria(id_usuario, 2)
-    print(type(resposta))
-    print(resposta)
     if type(resposta) == str:
         return (ESTADO.HOME, id_usuario)
     else:

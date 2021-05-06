@@ -1,8 +1,9 @@
 import re
 from home.consultas import consulta
+
 class validador:
     def validarNome(nome):
-        pattern = re.compile("^[1-9]\d[a-zA-Z .]{3,30}$")
+        pattern = re.compile("^[a-zA-Z .]{3,30}$")
         if re.match(pattern, nome):
             return True   
         return False
