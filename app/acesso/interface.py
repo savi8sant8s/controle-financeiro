@@ -35,7 +35,7 @@ def cadastrar():
         senha = input("| Digite sua senha: ")
         if not validador.validarNome(nome):
             layout.tracos()
-            layout.msg_vermelha("O nome deve conter de 5 a 30")
+            layout.msg_vermelha("O nome deve conter de 3 a 30")
             layout.msg_vermelha("caracteres sem acento ou números.")
             layout.tracos()
         elif not validador.validarEmail(email):

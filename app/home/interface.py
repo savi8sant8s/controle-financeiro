@@ -22,7 +22,6 @@ def tentar_novamente():
 
 def opcoes_home(id_usuario):
     saldo = consulta.saldo(id_usuario)
-    print(saldo)
     layout.tracos()
     layout.msg_ciano("Home")   
     layout.tracos()
@@ -44,17 +43,27 @@ def opcoes_categoria(id_usuario, tipo):
         categorias = consulta.listar_categorias(id_usuario)
     elif tipo == 2:
         categorias = consulta.listar_categorias_deletaveis(id_usuario)
+
     for categoria, cat_id in categorias:
         indice = [x[0] for x in categorias].index(categoria)
         layout.msg_amarela("{} ({})".format(indice, categoria))    
     layout.tracos()
-    layout.msg_cinza_claro("Digite a respectiva numeração da categoria.")
-    cat_indice = int(input("| Resposta: "))
-    if cat_indice > (len(categorias)-1) or cat_indice < 0: 
+
+    if categorias == []:
+        layout.msg_vermelha("| Não há Categorias personalizadas. Tente novamente...")
+        time.sleep(1)   
+        return "sair"
+
+    layout.msg_cinza_claro("Digite a respectiva numeração da categoria ou 'S' para sair.")
+    cat_indice = input("| Resposta: ")
+    if (cat_indice in 'Ss'):
+        return cat_indice
+    elif int(cat_indice) > (len(categorias)-1) or int(cat_indice) < 0: 
         layout.msg_vermelha("| Categoria não existe. Tente novamente...")
-        time.sleep(1)      
-        opcoes_categoria(id_usuario, tipo)
-    return categorias[cat_indice][1]
+        time.sleep(1)
+        opcoes_categoria(id_usuario, tipo)     
+    else:
+        return categorias[int(cat_indice)][1]        
 
 def interface_home(id_usuario):    
     opcoes_home(id_usuario)
@@ -68,9 +77,6 @@ def interface_home(id_usuario):
         return listar_transacoes(id_usuario)
     elif opcao_escolhida == 4:
         deletar_categoria(id_usuario)
-        layout.tracos()
-        layout.msg_verde("Categoria deletada com sucesso.")
-        layout.tracos()
         return (ESTADO.HOME, id_usuario)
     elif opcao_escolhida == 5:
         return (ESTADO.SAIR, None)
@@ -103,8 +109,10 @@ def cadastrar_transacao(id_usuario):
             layout.tracos()
             layout.msg_vermelha("| Categoria inválida. Digite apenas números")
             layout.tracos()
-        elif not description:
-            print(description)
+        elif not validador.validarSenha(description):
+            layout.tracos()
+            layout.msg_vermelha("| Descrição inválida.")
+            layout.tracos()
         else:
             consulta.criar_transacao(validador.filtrarDinheiro(value), type_id, id_usuario, cat_id, description)
             layout.tracos()
@@ -138,17 +146,25 @@ def listar_transacoes(id_usuario):
         layout.tracos()
         layout.msg_ciano("Lista de transações")
         layout.tracos()
-        print(id_usuario)
         transacoes = consulta.listar_transacoes(id_usuario)
         for transacao in transacoes:
-            texto = ["Descrição: " + transacao[0],"Valor: R$" + transacao[1]]            
-            layout.msg_roxo_claro(', '.join(texto))
+            texto = ["Descrição: " + str(transacao[0]),"Valor: R$" + str(transacao[1])]            
+            layout.msg_roxo_claro(' --> '.join(texto))
         layout.tracos()
         layout.msg_amarela("Digite qualquer tecla para voltar")
-        sair = int(input("|  Resposta: "))
+        sair = input("|  Resposta: ")
         if sair != None:            
             return (ESTADO.HOME, id_usuario)
 
 def deletar_categoria(id_usuario):
-    return consulta.deletar_categoria(id_usuario, opcoes_categoria(id_usuario, 2))
+    resposta = opcoes_categoria(id_usuario, 2)
+    print(type(resposta))
+    print(resposta)
+    if type(resposta) == str:
+        return (ESTADO.HOME, id_usuario)
+    else:
+        layout.tracos()
+        layout.msg_verde("Categoria deletada com sucesso.")
+        layout.tracos()
+        return consulta.deletar_categoria(id_usuario, resposta)
     
