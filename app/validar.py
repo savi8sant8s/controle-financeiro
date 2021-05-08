@@ -37,6 +37,8 @@ class validador:
     
     def validarCat(cat_id):
         pattern = re.compile("^[+]?[0-9]+$")
+        if cat_id in 'Ss':
+            return False
         if re.match(pattern, cat_id):
             return True
         return False

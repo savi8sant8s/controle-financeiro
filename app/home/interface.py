@@ -2,8 +2,6 @@ from home.consultas import consulta
 from validar import validador
 from layout import layout
 import time
-import re
-
 
 class ESTADO:
     ACESSO = 1
@@ -17,8 +15,6 @@ def tentar_novamente():
     layout.tracos()
     opcao_escolhida = int(input("| Resposta: "))
     return (opcao_escolhida == 1)
-
-
 
 def opcoes_home(id_usuario):
     saldo = consulta.saldo(id_usuario)
@@ -37,25 +33,27 @@ def opcoes_home(id_usuario):
     layout.tracos()
 
 def opcoes_categoria(id_usuario, tipo):
-    layout.tracos()
-    layout.msg_cinza_claro("Selecione uma categoria:")
     if tipo == 1:
         categorias = consulta.listar_categorias(id_usuario)
+        msg = "Digite a respectiva numeração da categoria."
     elif tipo == 2:
         categorias = consulta.listar_categorias_deletaveis(id_usuario)
-
+        msg = "Digite a respectiva numeração da categoria ou 'S' para sair."
     for categoria, cat_id in categorias:
         indice = [x[0] for x in categorias].index(categoria)
-        layout.msg_amarela("{} ({})".format(indice, categoria))    
+        layout.msg_amarela("({}) {}".format(indice, categoria))    
     layout.tracos()
 
     if categorias == []:
         layout.msg_vermelha("| Não há Categorias personalizadas. Tente novamente...")
         time.sleep(1)   
         return "sair"
+    else:
+        layout.tracos()
+        layout.msg_cinza_claro("Selecione uma categoria:")
 
-    layout.msg_cinza_claro("Digite a respectiva numeração da categoria ou 'S' para sair.")
-    cat_indice = input("| Resposta: ")
+    layout.msg_cinza_claro(msg)
+    cat_indice = input("|  Resposta: ")
     if (cat_indice in 'Ss'):
         return cat_indice
     elif int(cat_indice) > (len(categorias)-1) or int(cat_indice) < 0: 
@@ -68,7 +66,15 @@ def opcoes_categoria(id_usuario, tipo):
 def interface_home(id_usuario):    
     opcoes_home(id_usuario)
     layout.tracos()
-    opcao_escolhida = int(input("| Resposta: "))
+    opcao_escolhida = input("| Resposta: ")
+    if not validador.validarCat(opcao_escolhida):
+        layout.tracos()
+        layout.msg_vermelha("Digite apenas números.")
+        layout.tracos()
+        time.sleep(1)
+        return (ESTADO.HOME, id_usuario)
+    else:
+        opcao_escolhida = int(opcao_escolhida)
     if opcao_escolhida == 1:
         return cadastrar_transacao(id_usuario)
     elif opcao_escolhida == 2:
@@ -81,11 +87,11 @@ def interface_home(id_usuario):
     elif opcao_escolhida == 5:
         return (ESTADO.SAIR, None)
     else:
-        layout.limpar
         layout.tracos()
-        layout.msg_vermelha("Opção inválida. Tente novamente.")
+        layout.msg_vermelha("Opção inválida. Tente novamente")
         layout.tracos()
-        return (ESTADO.HOME, None)
+        time.sleep(1)
+        return (ESTADO.HOME, id_usuario)
 
 def cadastrar_transacao(id_usuario):
     while True:
@@ -107,7 +113,7 @@ def cadastrar_transacao(id_usuario):
             layout.tracos()
         elif not validador.validarCat(str(cat_id)):
             layout.tracos()
-            layout.msg_vermelha("| Categoria inválida. Digite apenas números")
+            layout.msg_vermelha("| Categoria inválida.")
             layout.tracos()
         elif not validador.validarSenha(description):
             layout.tracos()
@@ -151,9 +157,9 @@ def listar_transacoes(id_usuario):
         time.sleep(1)   
         return (ESTADO.HOME, id_usuario)
     for transacao in transacoes:
-        texto = ["Descrição: " + str(transacao[0]),"Valor: R$" + str(transacao[1])]            
-        layout.msg_roxo_claro(' --> '.join(texto))
-    layout.tracos()
+        texto = ["Categoria: " + str(transacao[0]),"\n|  Descricao: " + str(transacao[1]), "\n|  Tipo: " + str(transacao[2]), "\n|  Valor: R$" + str(transacao[3])]           
+        layout.msg_roxo_claro(' '.join(texto))
+        layout.tracos()
     return (ESTADO.HOME, id_usuario)
 
 def deletar_categoria(id_usuario):

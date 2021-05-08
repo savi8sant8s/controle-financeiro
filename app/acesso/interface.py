@@ -1,6 +1,7 @@
 from acesso.consultas import consulta
 from validar import validador
 from layout import layout
+import time
 
 class ESTADO:
     ACESSO = 1
@@ -86,7 +87,15 @@ def login():
 def interface_acesso():
     opcoes_acesso()
     layout.tracos()
-    opcao_escolhida = int(input("| Resposta: "))
+    opcao_escolhida = input("| Resposta: ")
+    if not validador.validarCat(opcao_escolhida):
+        layout.tracos()
+        layout.msg_vermelha("Digite apenas números.")
+        layout.tracos()
+        time.sleep(1)
+        return (ESTADO.ACESSO, None)
+    else:
+        opcao_escolhida = int(opcao_escolhida)
     if opcao_escolhida == 1:
         return cadastrar()
     elif opcao_escolhida == 2:

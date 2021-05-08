@@ -42,8 +42,8 @@ class consulta:
         conexao = sqlite3.connect(nome_bd)
         comando = conexao.cursor()
 
-        resposta = comando.execute('''SELECT trans_description, trans_value FROM transactions WHERE user_id = ?''', (user_id,))
-
+        resposta = comando.execute('''SELECT c.cat_name, tr.trans_description, t.type_name, tr.trans_value FROM transactions AS tr INNER JOIN users AS u ON (u.user_id = tr.user_id) INNER JOIN types AS t ON (t.type_id = tr.type_id) INNER JOIN categories AS c ON (c.cat_id = tr.cat_id) WHERE u.user_id = ?''', (user_id,)) 
+        
         conexao.commit()
         return resposta.fetchall()
 
