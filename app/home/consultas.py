@@ -69,6 +69,6 @@ class consulta:
     def deletar_categoria(user_id, cat_id):
         conexao = sqlite3.connect(nome_bd)
         comando = conexao.cursor()
-
+        comando.execute('''UPDATE transactions SET cat_id = 5 WHERE user_id = ? AND cat_id = ?''', (user_id, cat_id))
         comando.execute('''DELETE FROM categories WHERE user_id = ? AND cat_id = ?''', (user_id, cat_id))
         conexao.commit()
