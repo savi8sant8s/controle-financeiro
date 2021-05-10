@@ -18,6 +18,7 @@ def tentar_novamente():
 
 def opcoes_home(id_usuario):
     saldo = consulta.saldo(id_usuario)
+    print(saldo)
     layout.tracos()
     layout.msg_ciano("Home")   
     layout.tracos()

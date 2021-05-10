@@ -31,11 +31,11 @@ class layout:
 
     def formatar_saldo(msg):
         if msg == None:
-            layout.msg_verde("R$ 0")
+            layout.msg_verde("R$ 0,00")
         elif msg >= 0:
-            layout.msg_verde("R$" + str(msg))
+            layout.msg_verde("R$ {0:.2f}".format(msg))
         else:
-            layout.msg_vermelha("R$" + str(msg))
+            layout.msg_vermelha("R$ {0:.2f}".format(msg))
 
     def limpar():
         os.system('cls' if os.name == 'nt' else 'clear')
