@@ -11,6 +11,5 @@ Estudantes:
 Ferramentas necessárias (por enquanto):
 1. Python 3.* (linguagem de programação)
 2. Sqlite3 (biblioteca)
-3. Unittest (biblioteca)
-4. DB Browser for SQLite (software que apresenta e permite realizar operações em um banco de dados SQLite)
+3. DB Browser for SQLite (software que apresenta e permite realizar operações em um banco de dados SQLite)
 
