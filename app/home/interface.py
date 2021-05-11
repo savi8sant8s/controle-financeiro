@@ -98,7 +98,7 @@ def cadastrar_transacao(id_usuario):
         layout.tracos()
         layout.msg_ciano("Cadastro de Transação")
         layout.tracos()
-        value = input("| Digite o valor (Ex.: 20.000,00): R$")
+        value = input("| Digite o valor (Ex.: 20,00): R$ ")
         type_id = input("| Digite 1 para Receita | Digite 2 para Despesa: ")
         cat_id = opcoes_categoria(id_usuario, 1)
         description = input("| Descrição: ")
